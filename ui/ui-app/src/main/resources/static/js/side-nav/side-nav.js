@@ -85,6 +85,7 @@ define(['angular','side-nav/module-name', 'constants/AccessConstants'], function
                     links.push({sref: "tables",type:'link', icon: "grid_on", text: "Tables", permission: AccessConstants.UI_STATES.TABLES.permissions});
                     links.push({sref: "service-level-agreements",type:'link', icon: "beenhere", text: "SLA", permission: AccessConstants.UI_STATES.SERVICE_LEVEL_AGREEMENTS.permissions});
                     links.push({sref: "visual-query",type:'link', icon: "transform", text: "Visual Query", defaultActive: false, fullscreen: true, permission:AccessConstants.UI_STATES.VISUAL_QUERY.permissions});
+                    links.push({sref: "notebooks",type:'link', icon: "linear_scale", text: "Notebooks", permission: AccessConstants.UI_STATES.FEEDS.permissions});
                     menu.links = links;
                     menuMap[MENU_KEY.FEED_MGR] = menu;
                  return menu;

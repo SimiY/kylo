@@ -483,9 +483,7 @@ define(['angular', 'kylo-common', 'kylo-services',
             }
         });
 
-
-
-$stateProvider.state({
+    $stateProvider.state({
            name: "datasources.**",
            url: "/datasources",
            lazyLoad: function(transition) {
@@ -511,7 +509,9 @@ $stateProvider.state({
                    return err;
                });
            }
-       });       $stateProvider.state({
+       });
+
+    $stateProvider.state({
            name:'access-denied',
            url:'/access-denied',
            params:{attemptedState:null},
@@ -531,7 +531,27 @@ $stateProvider.state({
 
         });
 
+    $stateProvider.state({
+        name: 'notebooks.**',
+        url: '/notebooks',
+        lazyLoad: function (transition) {
+            transition.injector().get('$ocLazyLoad').load('feed-mgr/notebooks/module').then(function success(args) {
+                //upon success go back to the state
+                $stateProvider.stateService.go('notebooks')
+                return args;
+            }, function error(err) {
+                console.log("Error loading notebooks ", err);
+                return err;
+            });
+            ;
+        }
+    });
+
     }]);
+
+
+
+
 
     app.run(
         ['$rootScope', '$state', '$location', "$transitions","$timeout","$q", "AccessControlService",

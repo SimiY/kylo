@@ -243,11 +243,16 @@ define([], function () {
 
         this.UI_STATES = {
             FEEDS: {state: "feeds", permissions: [this.FEEDS_ACCESS]},
+
             DEFINE_FEED: {state: "define-feed", permissions: [this.FEEDS_EDIT]},
             DEFINE_FEED_COMPLETE: {state: "define-feed-complete", permissions: [this.FEEDS_ACCESS]},
             IMPORT_FEED: {state: "import-feed", permissions: [this.FEEDS_IMPORT]},
             FEED_DETAILS: {state: "feed-details", permissions: [this.FEEDS_ACCESS]},
             EDIT_FEED: {state: "edit-feed", permissions: [this.FEEDS_ACCESS]},
+
+            NOTEBOOKS: {state: "notebooks", permissions: []},
+
+
             CATEGORIES: {state: "categories", permissions: [this.CATEGORIES_ACCESS]},
             CATEGORY_DETAILS: {state: "category-details", permissions: [this.CATEGORIES_ACCESS]},
             BUSINESS_METADATA: {state: "business-metadata", permissions: [this.CATEGORIES_ADMIN]},

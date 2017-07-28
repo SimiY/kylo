@@ -1,0 +1,18 @@
+
+<style>
+  body, html {width: 100%; height: 100%; margin: 0; padding: 0}
+  .row-container {display: table; empty-cells: show; border-collapse: collapse; width: 100%; height: 100%;}
+  .first-row {display: table-row; overflow: auto; background-color: lime;}
+  .second-row {display: table-row; height: 100%; background-color: red; overflow: hidden }
+  .second-row iframe {width: 100%; height: 100%; border: none; margin: 0; padding: 0; display: block;}
+</style>
+
+{{vm.notebookurl}}
+
+<div class="row-container">
+  <div class="first-row"> <p>Welcome to Kylo</p> <p>Log in to JupyterHub below</p> </div>
+  <div class="second-row">
+    <iframe src="https://ec2-34-213-23-214.us-west-2.compute.amazonaws.com:8443">seen by browsers which do not support iframe.</iframe>
+  </div>
+</div>
+
