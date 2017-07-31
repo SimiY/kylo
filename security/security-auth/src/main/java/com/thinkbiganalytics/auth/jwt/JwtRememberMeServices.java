@@ -151,6 +151,7 @@ public class JwtRememberMeServices extends AbstractRememberMeServices {
         claims.setSubject(tokens[0]);
         claims.setStringListClaim("groups", Arrays.asList(tokens).subList(1, tokens.length));
 
+
         // Generate a signature
         final JsonWebSignature jws = new JsonWebSignature();
         jws.setAlgorithmHeaderValue(algorithmIdentifier);
@@ -227,4 +228,5 @@ public class JwtRememberMeServices extends AbstractRememberMeServices {
         }
         return secretKey;
     }
+
 }
