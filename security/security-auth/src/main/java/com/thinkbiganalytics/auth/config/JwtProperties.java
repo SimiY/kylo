@@ -20,16 +20,19 @@ package com.thinkbiganalytics.auth.config;
  * #L%
  */
 
+import org.apache.commons.lang3.StringUtils;
 import org.jose4j.jwa.AlgorithmFactoryFactory;
 import org.jose4j.jws.AlgorithmIdentifiers;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.io.File;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
+import javax.annotation.PostConstruct;
 
 /**
- * Configuration properties for the JSON Web Token Remember Me Service.
+ * Configuration properties for the JSON Web Tokens
  */
 @ConfigurationProperties("security.jwt")
 public class JwtProperties {
@@ -43,6 +46,12 @@ public class JwtProperties {
      * Secret key for signature
      */
     private String key;
+
+    private File notebooksKeyStore;
+
+    private String notebooksKeyStorePassword;
+
+    private String notebooksKeyAlias;
 
     @Nonnull
     public String getAlgorithm() {
@@ -71,4 +80,62 @@ public class JwtProperties {
     public void setKey(@Nonnull final String key) {
         this.key = key;
     }
+
+    public File getNotebooksKeyStore() {
+        return notebooksKeyStore;
+    }
+
+    public void setNotebooksKeyStore(File notebooksKeyStore) {
+        if( notebooksKeyStore != null) {
+            if( !notebooksKeyStore.exists() ) {
+                throw new IllegalArgumentException("Value of property jwt.security.notebooksKeyStore points to non-existent key store");
+            }
+            if( !notebooksKeyStore.isFile() ) {
+                throw new IllegalArgumentException("Value of property jwt.security.notebooksKeyStore points is not a file.");
+            }
+            if(  notebooksKeyStore.canRead() ) {
+                throw new IllegalArgumentException("Value of property jwt.security.notebooksKeyStore points is not a readable key store");
+            }
+        }
+        this.notebooksKeyStore = notebooksKeyStore;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        if( notebooksKeyStore != null) {
+            if( !notebooksKeyStore.exists() ) {
+                throw new IllegalArgumentException("Value of property jwt.security.notebooksKeyStore points to non-existent key store");
+            }
+            if( !notebooksKeyStore.isFile() ) {
+                throw new IllegalArgumentException("Value of property jwt.security.notebooksKeyStore points is not a file.");
+            }
+            if(  notebooksKeyStore.canRead() ) {
+                throw new IllegalArgumentException("Value of property jwt.security.notebooksKeyStore points is not a readable key store");
+            }
+        }
+    }
+
+
+    public String getNotebooksKeyStorePassword() {
+        return notebooksKeyStorePassword;
+    }
+
+    public void setNotebooksKeyStorePassword(String notebooksKeyStorePassword) {
+        this.notebooksKeyStorePassword = notebooksKeyStorePassword;
+    }
+
+    public String getNotebooksKeyAlias() {
+        return notebooksKeyAlias;
+    }
+
+    public void setNotebooksKeyAlias(String notebooksKeyAlias) {
+        this.notebooksKeyAlias = notebooksKeyAlias;
+    }
+
+    public boolean isNotebookConfigured() {
+        return (notebooksKeyStore != null) &&
+               StringUtils.isNotEmpty(notebooksKeyStorePassword) &&
+               StringUtils.isNotEmpty(notebooksKeyAlias);
+    }
+
 }
